@@ -19,7 +19,8 @@ public class PrincipalCandidatos {
             candidatos[i] = new Candidato(nomeCandidato, partido, intencoesVotos);
         }
 
-        ordenaCandidatosPorNome(candidatos);
+        Candidato[] NomesOrdenados = ordenaCandidatosPorNome(candidatos);
+
         System.out.println("Seleções ordenadas por nome:");
         imprimirCandidatos(candidatos);
         System.out.println();
@@ -33,12 +34,12 @@ public class PrincipalCandidatos {
         System.out.println("Candidatos ordenados por voto: ");
         imprimirCandidatos(candidatos);*/
 
-        pesquisaCandidato(candidatos);
+        pesquisaCandidato(NomesOrdenados);
     }
 
     
 
-    public static void ordenaCandidatosPorNome(Candidato[] candidatos){
+    public static Candidato[] ordenaCandidatosPorNome(Candidato[] candidatos){
         for(int i = 1; i < candidatos.length; i++){
             Candidato key = candidatos[i];
             int j = i -1;
@@ -50,6 +51,7 @@ public class PrincipalCandidatos {
 
             candidatos[j + 1] = key;
         }
+        return candidatos;
     }
 
     public static void ordenaCandidatosPorVotos(Candidato[] candidatos){
@@ -116,9 +118,6 @@ public class PrincipalCandidatos {
 
         return -1;
     }
-
-
-
 
     public static void imprimirCandidatos(Candidato[] candidatos) {
         for (Candidato candidato : candidatos) {
