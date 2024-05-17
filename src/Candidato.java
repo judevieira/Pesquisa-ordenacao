@@ -35,8 +35,6 @@ public class Candidato {
 
     @Override
     public String toString() {
-        return "Nome: " + nome +
-            "Partido: " + partido +
-            "Intençoes de votos: " + intencoesVotos;
+        return "Nome: " + nome + " | Partido: " + partido + " | Intenções de votos: " + intencoesVotos;
     }
 }

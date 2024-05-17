@@ -12,8 +12,8 @@ public class PrincipalCandidatos {
 
         for (int i = 0; i <nroCandidatos; i++){
 
-            String nomeCandidato = nomes[rand.nextInt(nomes.length)] + " | ";
-            String partido = partidos[rand.nextInt(partidos.length)]  + " | ";
+            String nomeCandidato = nomes[rand.nextInt(nomes.length)];
+            String partido = partidos[rand.nextInt(partidos.length)];
             int intencoesVotos	= rand.nextInt(100);
 
             candidatos[i] = new Candidato(nomeCandidato, partido, intencoesVotos);
@@ -101,15 +101,15 @@ public class PrincipalCandidatos {
     } 
 
     public static int pesquisaBinariaCandidatos(Candidato[] candidatos, String nome){
-        int inicio = 1;
+        int inicio = 0;
         int fim = candidatos.length-1;
 
         while(inicio <= fim){
             int meio = inicio + (fim - inicio) /2;
-            if(candidatos[meio].getNome().equals(nome)){
+            if(candidatos[meio].getNome().equalsIgnoreCase(nome)){
                 return meio;
             }
-            if(candidatos[meio].getNome().compareTo(nome)<0){
+            if(candidatos[meio].getNome().compareToIgnoreCase(nome)<0){
                 inicio = meio + 1;
             } else{
                 fim = meio -1 ;
