@@ -19,67 +19,82 @@ public class PrincipalCandidatos {
             candidatos[i] = new Candidato(nomeCandidato, partido, intencoesVotos);
         }
 
-        Candidato[] NomesOrdenados = ordenaCandidatosPorNome(candidatos);
 
+
+        Candidato[] NomesOrdenados = ordenaCandidatosPorNome(candidatos);
+        /* 
         System.out.println("Seleções ordenadas por nome:");
         imprimirCandidatos(candidatos);
         System.out.println();
-/* 
+
+        pesquisaBinariaCandidatos(candidatos,"");
+        
+*/
         ordenaCandidatosPorPartido(candidatos);
         System.out.println("Candidatos ordenados por partido: ");
         imprimirCandidatos(candidatos);
         System.out.println();
 
+
+/* 
         ordenaCandidatosPorVotos(candidatos);
         System.out.println("Candidatos ordenados por voto: ");
-        imprimirCandidatos(candidatos);*/
+        imprimirCandidatos(candidatos);
+
+*/
 
         pesquisaCandidato(NomesOrdenados);
     }
 
-    
-
-    public static Candidato[] ordenaCandidatosPorNome(Candidato[] candidatos){
-        for(int i = 1; i < candidatos.length; i++){
-            Candidato key = candidatos[i];
-            int j = i -1;
+    //insercao direta
+    public static Candidato[] ordenaCandidatosPorNome(Candidato[] candidatos) {
+        for (int i = 1; i < candidatos.length; i++) {
+            Candidato key = candidatos[i]; //armazena atual candidato em key
+            int j = i - 1; // 'j' como o índice anterior ao índice 'i'
             
-            while(j >= 0 && candidatos[j].getNome().compareTo(key.getNome())>0){
-                candidatos[j + 1] = candidatos[j];
-                j = j-1;
+            // Comparar os nomes dos candidatos
+            while (j >= 0 && candidatos[j].getNome().compareTo(key.getNome()) > 0) {
+                candidatos[j + 1] = candidatos[j]; // Deslocar candidatos maiores para a direita
+                j = j - 1; //movimenta j para a esquerda
             }
-
-            candidatos[j + 1] = key;
+            
+            candidatos[j + 1] = key; // Inserir key na posição correta
         }
+        
         return candidatos;
     }
-
-    public static void ordenaCandidatosPorVotos(Candidato[] candidatos){
-        for (int i = 0; i < candidatos.length - 1; i++) {
-            int min = i; 
     
-            for (int j = i + 1; j < candidatos.length; j++) {
+    
+    //selecao direta
+    public static void ordenaCandidatosPorVotos(Candidato[] candidatos){
+        for (int i = 0; i < candidatos.length - 1; i++) { //percorre array
+            int min = i; //menor elemento é o primeiro
+    
+            for (int j = i + 1; j < candidatos.length; j++) { //laco para procurar menor indice
                 if (candidatos[j].getIntencoesVotos() < candidatos[min].getIntencoesVotos()) {
-                    min = j;
+                    min = j; //atualiza para o menor indice encontrado
                 }
             }
     
-            Candidato temp = candidatos[i];
-            candidatos[i] = candidatos[min];
-            candidatos[min] = temp;
+            // Troca o elemento atual (na posição i) pelo menor elemento encontrado (na posição min)
+            Candidato temp = candidatos[i]; //guarda na variavel temporario 
+            candidatos[i] = candidatos[min]; //guarda o min na variavel trabalhada
+            candidatos[min] = temp; //guarda valor da variavel temp no minimo
         }
         
     }
 
+    //insercao direta
     public static void ordenaCandidatosPorPartido(Candidato[] candidatos){
-        for(int i = 1; i < candidatos.length; i++){
-            Candidato key = candidatos[i];
-            int j = i - 1;
+        for(int i = 1; i < candidatos.length; i++){ //percorre o array
+            Candidato key = candidatos[i]; //guarda na key candidato
+            int j = i - 1; //pega posicao anterior
 
             while(j>= 0 && candidatos[j].getPartido().compareTo(key.getPartido())>0){
-                candidatos[j+1] = candidatos[j];
+                candidatos[j+1] = candidatos[j]; //muda posicao
                 j = j-1;
             }
+            candidatos[j + 1] = key;
         }
 
     }
@@ -105,18 +120,18 @@ public class PrincipalCandidatos {
         int fim = candidatos.length-1;
 
         while(inicio <= fim){
-            int meio = inicio + (fim - inicio) /2;
-            if(candidatos[meio].getNome().equalsIgnoreCase(nome)){
-                return meio;
+            int meio = inicio + (fim - inicio) / 2;
+            if(candidatos[meio].getNome().equalsIgnoreCase(nome)){ 
+                return meio; //se encontrou o nome no meio, retorna o indice do meio
             }
-            if(candidatos[meio].getNome().compareToIgnoreCase(nome)<0){
-                inicio = meio + 1;
+            if(candidatos[meio].getNome().compareToIgnoreCase(nome)<0){ //compara se a posicao do meio é maior ou menor
+                inicio = meio + 1; //atualiza pra metade a direira
             } else{
-                fim = meio -1 ;
+                fim = meio -1 ; //atualiza pra outra metade a esquerda
             }
         }
 
-        return -1;
+        return -1; //retorna -1 se candidato nao foi encontrado
     }
 
     public static void imprimirCandidatos(Candidato[] candidatos) {
